@@ -12,6 +12,13 @@ import com.vpc3.personalexpensesapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
+
+
+
+
+
     EditText uname,upassword;
     Button login,register;
     @Override
