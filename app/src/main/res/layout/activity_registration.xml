@@ -24,13 +24,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bar">
 
+        <ImageView
+            android:id="@+id/logoApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_expensive" />
+
         <EditText
             android:id="@+id/userNameEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_textfiled_gray"
             android:hint="@string/enter_user_name" />
 
+
+        <EditText
+            android:id="@+id/mobileNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_textfiled_gray"
+            android:hint="@string/mobile"
+            android:inputType="phone" />
 
         <EditText
             android:id="@+id/userPassword"
@@ -40,17 +56,6 @@
             android:background="@drawable/rounded_textfiled_gray"
             android:hint="@string/enter_password"
             android:inputType="textPassword" />
-
-
-        <EditText
-            android:id="@+id/mobileNo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/rounded_textfiled_gray"
-            android:hint="@string/enter_password"
-            android:inputType="phone" />
-
 
         <EditText
             android:id="@+id/userCPassword"
@@ -62,10 +67,13 @@
             android:inputType="textPassword" />
 
 
-        <Button
+        <android.widget.Button
             android:id="@+id/registerBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
             android:background="@drawable/rounded_button_blue"
             android:text="@string/register" />
 

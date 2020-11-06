@@ -12,13 +12,6 @@ import com.vpc3.personalexpensesapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
-
-
-
-
-
     EditText uname,upassword;
     Button login,register;
     @Override
@@ -29,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this,ExpensesActivty.class);
+                Intent i = new Intent(MainActivity.this, ExpensesActivity.class);
                 startActivity(i);
             }
         });

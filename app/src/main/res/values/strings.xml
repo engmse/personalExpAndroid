@@ -6,4 +6,9 @@
     <string name="register">Register</string>
     <string name="confirm_password">Confirm Password..</string>
     <string name="select_date">Select Date</string>
+    <string name="mobile">Mobile no</string>
+    <string name="enter_place">Enter Place</string>
+    <string name="enter_date">Enter Date</string>
+    <string name="enter_money">Enter money</string>
+    <string name="save_expenses">SAVE EXPENSES</string>
 </resources>
