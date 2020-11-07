@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, ExpensesActivity.class);
+                i.putExtra("KEY_UN",uname.getText().toString());
                 startActivity(i);
             }
         });

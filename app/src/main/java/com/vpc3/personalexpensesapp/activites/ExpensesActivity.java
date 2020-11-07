@@ -1,6 +1,9 @@
 package com.vpc3.personalexpensesapp.activites;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -12,15 +15,38 @@ import android.widget.TextView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vpc3.personalexpensesapp.R;
+import com.vpc3.personalexpensesapp.activites.adapter.ExpensesAdapter;
+import com.vpc3.personalexpensesapp.activites.model.Expenses;
+
+import java.util.ArrayList;
 
 public class ExpensesActivity extends AppCompatActivity {
     private FloatingActionButton fcb;
+    private TextView welcome;
+    RecyclerView recyclerView;
+    ArrayList<Expenses> expensesArrayList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expenses_activty);
+        initView();
+    }
+
+
+    private  void initView(){
         TextView dp = findViewById(R.id.dataPicker);
         fcb = findViewById(R.id.floatingAddBtn);
+        welcome = findViewById(R.id.welcomeTv);
+        recyclerView = findViewById(R.id.recyclerExpenses);
+        RecyclerView.LayoutManager manager =new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(manager);
+        ExpensesAdapter adapter = new ExpensesAdapter(this,expensesArrayList);
+        recyclerView.setAdapter(adapter);
+        /*************************************************/
+        Bundle b = getIntent().getExtras();
+        if(b!=null){
+            welcome.setText("Welcome "+b.getString("KEY_UN"));
+        }
         dp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
