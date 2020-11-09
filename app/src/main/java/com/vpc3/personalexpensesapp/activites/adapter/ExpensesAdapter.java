@@ -1,12 +1,15 @@
 package com.vpc3.personalexpensesapp.activites.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vpc3.personalexpensesapp.R;
@@ -36,6 +39,26 @@ public class ExpensesAdapter  extends  RecyclerView.Adapter<ExpensesAdapter.Expe
        holder.place.setText(arrayList.get(position).getPlace());
         holder.date.setText(arrayList.get(position).getDate());
         holder.money.setText(String.valueOf(arrayList.get(position).getMoney()));
+        holder.remove.setOnClickListener(view -> {
+            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+            alertDialog.setTitle("Confirm Delete");
+            alertDialog.setMessage("Are you sure that you want to delete?");
+             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+                 @Override
+                 public void onClick(DialogInterface dialogInterface, int i) {
+                     arrayList.remove(position);
+                     notifyDataSetChanged();
+                 }
+             });
+
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                   alertDialog.dismiss();
+                }
+            });
+            alertDialog.show();
+        });
     }
 
     @Override
@@ -46,11 +69,13 @@ public class ExpensesAdapter  extends  RecyclerView.Adapter<ExpensesAdapter.Expe
     class ExpensesViewHolder extends RecyclerView.ViewHolder{
 
         TextView place,money,date;
+        ImageView remove;
         public ExpensesViewHolder(@NonNull View itemView) {
             super(itemView);
             place = itemView.findViewById(R.id.placeTv);
             money = itemView.findViewById(R.id.moneyTv);
             date = itemView.findViewById(R.id.dateTv);
+            remove = itemView.findViewById(R.id.removeBtn);
         }
     }
 }

@@ -24,7 +24,7 @@
 
 
    <LinearLayout
-       android:layout_width="match_parent"
+       android:layout_width="wrap_content"
        android:layout_height="match_parent"
        android:orientation="horizontal"
        android:weightSum="2"
@@ -52,8 +52,18 @@
            android:textSize="12sp"
            android:textStyle="bold"
            android:layout_gravity="end|bottom"
+           android:textAlignment="viewEnd"
            android:layout_weight="0.5"
            android:layout_marginBottom="8dp"
            />
+
+       <ImageView
+           android:id="@+id/removeBtn"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:src="@drawable/ic_baseline_delete_outline_24" />
+
    </LinearLayout>
+
+
 </LinearLayout>
