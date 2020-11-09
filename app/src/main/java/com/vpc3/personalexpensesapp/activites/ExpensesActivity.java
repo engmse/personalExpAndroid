@@ -25,6 +25,7 @@ public class ExpensesActivity extends AppCompatActivity {
     private TextView welcome;
     RecyclerView recyclerView;
     ArrayList<Expenses> expensesArrayList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,19 +34,19 @@ public class ExpensesActivity extends AppCompatActivity {
     }
 
 
-    private  void initView(){
+    private void initView() {
         TextView dp = findViewById(R.id.dataPicker);
         fcb = findViewById(R.id.floatingAddBtn);
         welcome = findViewById(R.id.welcomeTv);
         recyclerView = findViewById(R.id.recyclerExpenses);
-        RecyclerView.LayoutManager manager =new LinearLayoutManager(this);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
-        ExpensesAdapter adapter = new ExpensesAdapter(this,expensesArrayList);
+        ExpensesAdapter adapter = new ExpensesAdapter(this, expensesArrayList);
         recyclerView.setAdapter(adapter);
         /*************************************************/
         Bundle b = getIntent().getExtras();
-        if(b!=null){
-            welcome.setText("Welcome "+b.getString("KEY_UN"));
+        if (b != null) {
+            welcome.setText("Welcome " + b.getString("KEY_UN"));
         }
         dp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,15 +54,21 @@ public class ExpensesActivity extends AppCompatActivity {
                 DatePickerDialog d = new DatePickerDialog(ExpensesActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        dp.setText(i+"/"+i1+"/"+i2);
+                        dp.setText(i + "/" + i1 + "/" + i2);
                     }
-                },2020,11,4);
+                }, 2020, 11, 4);
                 d.show();
             }
         });
 
         fcb.setOnClickListener(view -> {
-            BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
+            BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(new BottomSheetFragment.ExpensesCallBack() {
+                @Override
+                public void onExpensesAdded(Expenses e) {
+                    expensesArrayList.add(e);
+                    adapter.notifyDataSetChanged();
+                }
+            });
             bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
         });
 

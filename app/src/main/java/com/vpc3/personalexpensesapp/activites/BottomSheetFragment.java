@@ -16,7 +16,12 @@ import com.vpc3.personalexpensesapp.activites.model.Expenses;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
 
-    public BottomSheetFragment() {
+    interface ExpensesCallBack{
+        void onExpensesAdded(Expenses e);
+    }
+    private ExpensesCallBack expensesCallBack;
+    public BottomSheetFragment(ExpensesCallBack expensesCallBack) {
+        this.expensesCallBack = expensesCallBack;
     }
 
     @Override
@@ -39,6 +44,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                 String date1 = date.getText().toString();
                 String amount = amountEt.getText().toString();
                 Expenses e = new Expenses(placeSt,date1,Double.parseDouble(amount));
+                expensesCallBack.onExpensesAdded(e);
+                dismiss();
             }
         });
 
