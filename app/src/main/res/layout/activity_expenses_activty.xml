@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".activites.ExpensesActivity">
 
+    <include layout="@layout/app_bar_back" android:id="@+id/appBar"/>
+
     <TextView
         android:id="@+id/dataPicker"
         android:layout_width="0dp"
@@ -14,7 +16,7 @@
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar"
         android:drawablePadding="8dp"
         android:textStyle="bold"
         android:layout_marginTop="8dp"

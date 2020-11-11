@@ -11,4 +11,11 @@
     <string name="enter_date">Enter Date</string>
     <string name="enter_money">Enter money</string>
     <string name="save_expenses">SAVE EXPENSES</string>
+    <string name="confirm_text">Confirm Delete</string>
+    <string name="dialog_msg">Are you sure that you want to delete?</string>
+    <string name="expenses">Expenses</string>
+    <string name="setting">Settings</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,6 +41,14 @@ public class ExpensesActivity extends AppCompatActivity {
         fcb = findViewById(R.id.floatingAddBtn);
         welcome = findViewById(R.id.welcomeTv);
         recyclerView = findViewById(R.id.recyclerExpenses);
+        View appBar = findViewById(R.id.appBar);
+        ImageView back = appBar.findViewById(R.id.backBtn);
+        TextView title = appBar.findViewById(R.id.titleBar);
+        ImageView settings = appBar.findViewById(R.id.settingBtn);
+
+        back.setVisibility(View.INVISIBLE);
+        title.setText(R.string.expenses);
+        settings.setVisibility(View.VISIBLE);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         ExpensesAdapter adapter = new ExpensesAdapter(this, expensesArrayList);
@@ -70,6 +80,11 @@ public class ExpensesActivity extends AppCompatActivity {
                 }
             });
             bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+        });
+
+        settings.setOnClickListener(view -> {
+            startActivity(new Intent(ExpensesActivity.this,
+                    SettingsActivity.class));
         });
 
 

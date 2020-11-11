@@ -41,8 +41,8 @@ public class ExpensesAdapter  extends  RecyclerView.Adapter<ExpensesAdapter.Expe
         holder.money.setText(String.valueOf(arrayList.get(position).getMoney()));
         holder.remove.setOnClickListener(view -> {
             AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-            alertDialog.setTitle("Confirm Delete");
-            alertDialog.setMessage("Are you sure that you want to delete?");
+            alertDialog.setTitle(context.getString(R.string.confirm_text));
+            alertDialog.setMessage(context.getString(R.string.dialog_msg));
              alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
                  @Override
                  public void onClick(DialogInterface dialogInterface, int i) {
