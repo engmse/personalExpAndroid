@@ -9,7 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PersonalExpensesApp">
-        <activity android:name=".activites.SettingsActivity"></activity>
+        <activity android:name=".activites.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activites.SettingsActivity" />
         <activity android:name=".activites.ExpensesActivity" />
         <activity
             android:name=".activites.RegistrationActivity"
@@ -17,11 +24,7 @@
         <activity
             android:name=".activites.MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
