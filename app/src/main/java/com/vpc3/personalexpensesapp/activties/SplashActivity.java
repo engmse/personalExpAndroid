@@ -19,16 +19,16 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         logo = findViewById(R.id.appLogo);
 
-        Animation a = AnimationUtils.loadAnimation(this,R.anim.rotote);
+        Animation a = AnimationUtils.loadAnimation(this,R.anim.fade_in);
         a.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) { }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-              //  Intent i = new Intent(SplashActivity.this,MainActivity.class);
-               // startActivity(i);
-               // finish();
+                Intent i = new Intent(SplashActivity.this,MainActivity.class);
+                startActivity(i);
+                finish();
             }
 
             @Override

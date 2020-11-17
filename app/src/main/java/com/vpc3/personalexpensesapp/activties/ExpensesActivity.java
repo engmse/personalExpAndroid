@@ -46,9 +46,9 @@ public class ExpensesActivity extends AppCompatActivity {
         TextView title = appBar.findViewById(R.id.titleBar);
         ImageView settings = appBar.findViewById(R.id.settingBtn);
 
-        back.setVisibility(View.INVISIBLE);
+        back.setVisibility(View.GONE);
         title.setText(R.string.expenses);
-        settings.setVisibility(View.VISIBLE);
+        settings.setVisibility(View.INVISIBLE);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         ExpensesAdapter adapter = new ExpensesAdapter(this, expensesArrayList);
