@@ -1,7 +1,6 @@
 package com.vpc3.personalexpensesapp.activites;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,14 +10,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vpc3.personalexpensesapp.R;
-import com.vpc3.personalexpensesapp.activites.adapter.ExpensesAdapter;
-import com.vpc3.personalexpensesapp.activites.model.Expenses;
+import com.vpc3.personalexpensesapp.adapter.ExpensesAdapter;
+import com.vpc3.personalexpensesapp.model.Expenses;
 
 import java.util.ArrayList;
 
@@ -72,7 +69,7 @@ public class ExpensesActivity extends AppCompatActivity {
         });
 
         fcb.setOnClickListener(view -> {
-            BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(new BottomSheetFragment.ExpensesCallBack() {
+            com.vpc3.personalexpensesapp.activites.BottomSheetFragment bottomSheetFragment = new com.vpc3.personalexpensesapp.activites.BottomSheetFragment(new BottomSheetFragment.ExpensesCallBack() {
                 @Override
                 public void onExpensesAdded(Expenses e) {
                     expensesArrayList.add(e);
@@ -84,7 +81,7 @@ public class ExpensesActivity extends AppCompatActivity {
 
         settings.setOnClickListener(view -> {
             startActivity(new Intent(ExpensesActivity.this,
-                    SettingsActivity.class));
+                    com.vpc3.personalexpensesapp.activites.SettingsActivity.class));
         });
 
 
