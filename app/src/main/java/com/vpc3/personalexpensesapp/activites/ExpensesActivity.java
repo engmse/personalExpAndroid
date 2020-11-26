@@ -6,25 +6,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.vpc3.personalexpensesapp.Common;
 import com.vpc3.personalexpensesapp.R;
 import com.vpc3.personalexpensesapp.adapter.ExpensesAdapter;
 import com.vpc3.personalexpensesapp.model.Expenses;
+import com.vpc3.personalexpensesapp.roomdb.RoomDatabaseSingleton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExpensesActivity extends AppCompatActivity {
     private FloatingActionButton fcb;
     private TextView welcome;
     RecyclerView recyclerView;
-    ArrayList<Expenses> expensesArrayList = new ArrayList<>();
-
+    ExpensesAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +51,9 @@ public class ExpensesActivity extends AppCompatActivity {
         back.setVisibility(View.GONE);
         title.setText(R.string.expenses);
         settings.setVisibility(View.INVISIBLE);
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         recyclerView.setLayoutManager(manager);
-        ExpensesAdapter adapter = new ExpensesAdapter(this, expensesArrayList);
-        recyclerView.setAdapter(adapter);
+        getAllExpenses();
         /*************************************************/
         Bundle b = getIntent().getExtras();
         if (b != null) {
@@ -72,8 +76,7 @@ public class ExpensesActivity extends AppCompatActivity {
             com.vpc3.personalexpensesapp.activites.BottomSheetFragment bottomSheetFragment = new com.vpc3.personalexpensesapp.activites.BottomSheetFragment(new BottomSheetFragment.ExpensesCallBack() {
                 @Override
                 public void onExpensesAdded(Expenses e) {
-                    expensesArrayList.add(e);
-                    adapter.notifyDataSetChanged();
+                   saveExpenses(e);
                 }
             });
             bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
@@ -85,5 +88,49 @@ public class ExpensesActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void saveExpenses(Expenses e){
+        class ExpensesTask extends AsyncTask<Void,Void,Void>{
+            @Override
+            protected Void doInBackground(Void... voids) {
+                RoomDatabaseSingleton.getInstance(getApplicationContext())
+                        .getAppDatabase()
+                        .getDao()
+                        .addExpenses(e);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                Toast.makeText(ExpensesActivity.this, "Expenses Added Sucessfully", Toast.LENGTH_SHORT).show();
+                adapter.notifyDataSetChanged();
+            }
+        }
+        new ExpensesTask().execute();
+    }
+
+    private  void getAllExpenses(){
+        class allExpensesTask extends AsyncTask<Void,Void,Void>{
+            ArrayList<Expenses> expensesList;
+            @Override
+            protected Void doInBackground(Void... voids) {
+                expensesList=  (ArrayList<Expenses>) RoomDatabaseSingleton.getInstance(getApplicationContext())
+                        .getAppDatabase()
+                        .getDao()
+                        .getAllExpenses(Common.user.getUid());
+                Log.d("Array_SIZE",""+ expensesList.size());
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                adapter = new ExpensesAdapter(getApplicationContext(), expensesList);
+                recyclerView.setAdapter(adapter);
+            }
+        }
+        new allExpensesTask().execute();
     }
 }

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.vpc3.personalexpensesapp.Common;
 import com.vpc3.personalexpensesapp.R;
 import com.vpc3.personalexpensesapp.model.User;
 import com.vpc3.personalexpensesapp.roomdb.RoomDatabaseSingleton;
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 if (u[0] != null) {
                     Intent i = new Intent(MainActivity.this, ExpensesActivity.class);
                     i.putExtra("KEY_UN", uname.getText().toString());
+                    Common.user = u[0];
                     startActivity(i);
                 } else {
                     Toast.makeText(MainActivity.this, "User Name or password incorrect!", Toast.LENGTH_SHORT).show();

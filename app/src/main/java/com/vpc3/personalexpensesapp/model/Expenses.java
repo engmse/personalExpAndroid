@@ -1,14 +1,22 @@
 package com.vpc3.personalexpensesapp.model;
 
-public class Expenses {
-   private String place,date;
-   private double money;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-    public Expenses(String place, String date, double money) {
-        this.place = place;
-        this.date = date;
-        this.money = money;
-    }
+@Entity
+public class Expenses {
+
+    @PrimaryKey(autoGenerate = true)
+    private int txId;
+    @ColumnInfo(name = "Place")
+    private String place;
+    @ColumnInfo(name = "txDate")
+    private String date;
+    @ColumnInfo(name = "Amount")
+    private double money;
+    @ColumnInfo(name = "uid")
+    private int uid;
 
     public String getPlace() {
         return place;
@@ -32,5 +40,21 @@ public class Expenses {
 
     public void setMoney(double money) {
         this.money = money;
+    }
+
+    public int getTxId() {
+        return txId;
+    }
+
+    public void setTxId(int txId) {
+        this.txId = txId;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 }

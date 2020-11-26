@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.vpc3.personalexpensesapp.Common;
 import com.vpc3.personalexpensesapp.R;
 import com.vpc3.personalexpensesapp.model.Expenses;
 
@@ -43,7 +44,11 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                 String placeSt = place.getText().toString();
                 String date1 = date.getText().toString();
                 String amount = amountEt.getText().toString();
-                Expenses e = new Expenses(placeSt,date1,Double.parseDouble(amount));
+                Expenses e = new Expenses();
+                e.setDate(date1);
+                e.setMoney(Double.parseDouble(amount));
+                e.setPlace(placeSt);
+                e.setUid(Common.user.getUid());
                 expensesCallBack.onExpensesAdded(e);
                 dismiss();
             }
