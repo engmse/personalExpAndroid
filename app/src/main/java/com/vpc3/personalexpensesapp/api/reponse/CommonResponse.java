@@ -2,7 +2,7 @@ package com.vpc3.personalexpensesapp.api.reponse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RegestrationResponse {
+public class CommonResponse {
 
     @SerializedName("oper")
     @Expose

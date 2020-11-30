@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.vpc3.personalexpensesapp.R;
 import com.vpc3.personalexpensesapp.api.ApiClient;
 import com.vpc3.personalexpensesapp.api.ApiInterface;
-import com.vpc3.personalexpensesapp.api.reponse.RegestrationResponse;
+import com.vpc3.personalexpensesapp.api.reponse.CommonResponse;
 import com.vpc3.personalexpensesapp.api.request.User;
 
 import retrofit2.Call;
@@ -64,21 +64,21 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void registerUser(User user) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<RegestrationResponse> callReigster = apiInterface.register(user.getUsername(),
+        Call<CommonResponse> callReigster = apiInterface.register(user.getUsername(),
                 user.getMobile(),
                 user.getPassword(),
                 user.getConpassword(),
                 user.getEmail());
-        callReigster.enqueue(new Callback<RegestrationResponse>() {
+        callReigster.enqueue(new Callback<CommonResponse>() {
             @Override
-            public void onResponse(Call<RegestrationResponse> call, Response<RegestrationResponse> response) {
+            public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
                 Log.d("DDDDDD", response.body().toString());
                 Toast.makeText(RegistrationActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 progressLoading.setVisibility(View.GONE);
             }
 
             @Override
-            public void onFailure(Call<RegestrationResponse> call, Throwable t) {
+            public void onFailure(Call<CommonResponse> call, Throwable t) {
                 Toast.makeText(RegistrationActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
                 progressLoading.setVisibility(View.GONE);
             }
