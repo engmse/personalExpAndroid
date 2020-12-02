@@ -13,16 +13,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vpc3.personalexpensesapp.R;
-import com.vpc3.personalexpensesapp.activites.model.Expenses;
+import com.vpc3.personalexpensesapp.model.Expenses;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExpensesAdapter  extends  RecyclerView.Adapter<ExpensesAdapter.ExpensesViewHolder>{
 
     private Context context;
-    private ArrayList<Expenses> arrayList;
+    private List<Expenses> arrayList;
 
-    public ExpensesAdapter(Context context, ArrayList<Expenses> arrayList) {
+    public ExpensesAdapter(Context context, List<Expenses> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }

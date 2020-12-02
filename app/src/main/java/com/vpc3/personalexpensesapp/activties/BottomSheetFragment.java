@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.vpc3.personalexpensesapp.R;
-import com.vpc3.personalexpensesapp.activites.model.Expenses;
+import com.vpc3.personalexpensesapp.model.Expenses;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
 

@@ -1,8 +1,25 @@
-package com.vpc3.personalexpensesapp.activites.model;
+package com.vpc3.personalexpensesapp.model;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Expenses {
-   private String place,date;
-   private double money;
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("user_id")
+    @Expose
+    private String userId;
+    @SerializedName("place_txt")
+    @Expose
+    private String place;
+    @SerializedName("pay_date")
+    @Expose
+    private String date;
+    @SerializedName("amount")
+    @Expose
+    private double money;
+
 
     public Expenses(String place, String date, double money) {
         this.place = place;

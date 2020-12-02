@@ -20,11 +20,13 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vpc3.personalexpensesapp.R;
 import com.vpc3.personalexpensesapp.activites.adapter.ExpensesAdapter;
-import com.vpc3.personalexpensesapp.activites.model.Expenses;
+
 import com.vpc3.personalexpensesapp.api.ApiClient;
 import com.vpc3.personalexpensesapp.api.ApiInterface;
 import com.vpc3.personalexpensesapp.api.reponse.CommonResponse;
+import com.vpc3.personalexpensesapp.api.reponse.ExpensesResponse;
 import com.vpc3.personalexpensesapp.helper.Common;
+import com.vpc3.personalexpensesapp.model.Expenses;
 
 import java.util.ArrayList;
 
@@ -44,6 +46,7 @@ public class ExpensesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expenses_activty);
         initView();
+
     }
 
 
@@ -63,8 +66,8 @@ public class ExpensesActivity extends AppCompatActivity {
         settings.setVisibility(View.INVISIBLE);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
-         adapter = new ExpensesAdapter(this, expensesArrayList);
-        recyclerView.setAdapter(adapter);
+        progressExpenses.setVisibility(View.VISIBLE);
+        getAllExpenses(Common.user.getId(),"");
         /*************************************************/
         Bundle b = getIntent().getExtras();
         if (b != null) {
@@ -77,6 +80,7 @@ public class ExpensesActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         dp.setText(i + "/" + i1 + "/" + i2);
+
                     }
                 }, 2020, 11, 4);
                 d.show();
@@ -125,6 +129,25 @@ public class ExpensesActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<CommonResponse> call, Throwable t) {
                 Toast.makeText(ExpensesActivity.this, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+                progressExpenses.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void getAllExpenses(String userId,String date){
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ExpensesResponse> expensesResponseCall = apiInterface.getAllExpenses(userId,date);
+        expensesResponseCall.enqueue(new Callback<ExpensesResponse>() {
+            @Override
+            public void onResponse(Call<ExpensesResponse> call, Response<ExpensesResponse> response) {
+                adapter = new ExpensesAdapter(ExpensesActivity.this, response.body().getData());
+                recyclerView.setAdapter(adapter);
+                progressExpenses.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<ExpensesResponse> call, Throwable t) {
+                Toast.makeText(ExpensesActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 progressExpenses.setVisibility(View.GONE);
             }
         });
