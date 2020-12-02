@@ -14,6 +14,7 @@ import com.vpc3.personalexpensesapp.R;
 import com.vpc3.personalexpensesapp.api.ApiClient;
 import com.vpc3.personalexpensesapp.api.ApiInterface;
 import com.vpc3.personalexpensesapp.api.reponse.LoginResponse;
+import com.vpc3.personalexpensesapp.helper.Common;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import retrofit2.Call;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 if(opreation){
                     Intent i = new Intent(MainActivity.this, ExpensesActivity.class);
                     i.putExtra("KEY_UN",uname.getText().toString());
+                    Common.user = response.body().getData();
                     startActivity(i);
                 }else{
                     Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();

@@ -21,8 +21,18 @@ public interface ApiInterface {
                                   @Field("password") String password,
                                   @Field("conpassword") String cpassword,
                                   @Field("email") String email);
+
     @FormUrlEncoded
     @POST("login.php")
     Call<LoginResponse> login(@Field("username") String userName,
                               @Field("password") String password);
+
+
+    @FormUrlEncoded
+    @POST("expenses.php")
+    Call<CommonResponse> addExpenses(@Field("place_txt") String place,
+                                     @Field("pay_date") String date,
+                                     @Field("amount") String amount,
+                                     @Field("user_id") String userId
+    );
 }
