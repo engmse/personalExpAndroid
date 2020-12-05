@@ -10,8 +10,8 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vpc3.personalexpensesapp.R;
-import com.vpc3.personalexpensesapp.activites.fragments.ProfileFragment;
-import com.vpc3.personalexpensesapp.activites.fragments.SettingFragment;
+import com.vpc3.personalexpensesapp.fragments.ProfileFragment;
+import com.vpc3.personalexpensesapp.fragments.SettingFragment;
 
 public class SettingsActivity extends AppCompatActivity {
 

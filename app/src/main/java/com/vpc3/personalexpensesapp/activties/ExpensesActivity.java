@@ -17,8 +17,8 @@ import android.widget.TextView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vpc3.personalexpensesapp.R;
-import com.vpc3.personalexpensesapp.activites.adapter.ExpensesAdapter;
-import com.vpc3.personalexpensesapp.activites.model.Expenses;
+import com.vpc3.personalexpensesapp.adapter.ExpensesAdapter;
+import com.vpc3.personalexpensesapp.model.Expenses;
 
 import java.util.ArrayList;
 
