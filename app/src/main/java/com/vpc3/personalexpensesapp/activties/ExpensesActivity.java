@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -41,6 +42,7 @@ public class ExpensesActivity extends AppCompatActivity {
     ArrayList<Expenses> expensesArrayList = new ArrayList<>();
     ExpensesAdapter adapter;
     private ProgressBar progressExpenses;
+    SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,6 @@ public class ExpensesActivity extends AppCompatActivity {
 
     }
 
-
     private void initView() {
         TextView dp = findViewById(R.id.dataPicker);
         fcb = findViewById(R.id.floatingAddBtn);
@@ -57,10 +58,10 @@ public class ExpensesActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerExpenses);
         progressExpenses = findViewById(R.id.progressExpenses);
         View appBar = findViewById(R.id.appBar);
+        swipeRefreshLayout = findViewById(R.id.swapToRefresh);
         ImageView back = appBar.findViewById(R.id.backBtn);
         TextView title = appBar.findViewById(R.id.titleBar);
         ImageView settings = appBar.findViewById(R.id.settingBtn);
-
         back.setVisibility(View.GONE);
         title.setText(R.string.expenses);
         settings.setVisibility(View.INVISIBLE);
@@ -105,6 +106,14 @@ public class ExpensesActivity extends AppCompatActivity {
                     SettingsActivity.class));
         });
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getAllExpenses(Common.user.getId(),"");
+                swipeRefreshLayout.setRefreshing(false);// Disables the refresh icon
+            }
+        });
+
 
     }
 
@@ -121,8 +130,7 @@ public class ExpensesActivity extends AppCompatActivity {
                 boolean opr = response.body().getOper();
                 Toast.makeText(ExpensesActivity.this, msg, Toast.LENGTH_SHORT).show();
                 if(opr){
-                    expensesArrayList.add(e);
-                    adapter.notifyDataSetChanged();
+                   adapter.addExpenses(e);
                 }
                 progressExpenses.setVisibility(View.GONE);
             }

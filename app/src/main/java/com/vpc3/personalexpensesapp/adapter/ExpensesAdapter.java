@@ -72,6 +72,11 @@ public class ExpensesAdapter  extends  RecyclerView.Adapter<ExpensesAdapter.Expe
         notifyDataSetChanged();
     }
 
+    public void addExpenses(Expenses e){
+        arrayList.add(e);
+        notifyDataSetChanged();
+    }
+
     class ExpensesViewHolder extends RecyclerView.ViewHolder{
 
         TextView place,money,date;
