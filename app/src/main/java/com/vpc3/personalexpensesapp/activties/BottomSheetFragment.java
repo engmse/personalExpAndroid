@@ -1,4 +1,4 @@
-package com.vpc3.personalexpensesapp.activites;
+package com.vpc3.personalexpensesapp.activties;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.vpc3.personalexpensesapp.activites.fragments;
+package com.vpc3.personalexpensesapp.fragments;
 
 import android.os.Bundle;
 

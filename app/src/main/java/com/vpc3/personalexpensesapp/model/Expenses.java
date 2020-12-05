@@ -1,4 +1,4 @@
-package com.vpc3.personalexpensesapp.activites.model;
+package com.vpc3.personalexpensesapp.model;
 
 public class Expenses {
    private String place,date;

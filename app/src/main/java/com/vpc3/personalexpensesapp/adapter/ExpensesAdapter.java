@@ -1,4 +1,4 @@
-package com.vpc3.personalexpensesapp.activites.adapter;
+package com.vpc3.personalexpensesapp.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;

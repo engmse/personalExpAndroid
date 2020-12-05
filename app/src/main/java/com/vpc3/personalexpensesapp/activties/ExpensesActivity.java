@@ -1,4 +1,4 @@
-package com.vpc3.personalexpensesapp.activites;
+package com.vpc3.personalexpensesapp.activties;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
