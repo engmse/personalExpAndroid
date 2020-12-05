@@ -19,8 +19,8 @@ import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.vpc3.personalexpensesapp.R;
-import com.vpc3.personalexpensesapp.activites.adapter.ExpensesAdapter;
 
+import com.vpc3.personalexpensesapp.adapter.ExpensesAdapter;
 import com.vpc3.personalexpensesapp.api.ApiClient;
 import com.vpc3.personalexpensesapp.api.ApiInterface;
 import com.vpc3.personalexpensesapp.api.reponse.CommonResponse;
@@ -79,8 +79,9 @@ public class ExpensesActivity extends AppCompatActivity {
                 DatePickerDialog d = new DatePickerDialog(ExpensesActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        dp.setText(i + "/" + i1 + "/" + i2);
-
+                        dp.setText(i + "/" + (i1+1) + "/" + i2);
+                        progressExpenses.setVisibility(View.VISIBLE);
+                        getAllExpenses(Common.user.getId(),i + "-" + (i1+1) + "-" + i2);
                     }
                 }, 2020, 11, 4);
                 d.show();
@@ -140,9 +141,17 @@ public class ExpensesActivity extends AppCompatActivity {
         expensesResponseCall.enqueue(new Callback<ExpensesResponse>() {
             @Override
             public void onResponse(Call<ExpensesResponse> call, Response<ExpensesResponse> response) {
-                adapter = new ExpensesAdapter(ExpensesActivity.this, response.body().getData());
-                recyclerView.setAdapter(adapter);
+                if(response.body().getData().size()>0){
+                    adapter = new ExpensesAdapter(ExpensesActivity.this, response.body().getData());
+                    recyclerView.setAdapter(adapter);
+
+                }else
+                {
+                    adapter.deleteAllData();
+                    Toast.makeText(ExpensesActivity.this, "No Expenses Added", Toast.LENGTH_SHORT).show();
+                }
                 progressExpenses.setVisibility(View.GONE);
+                adapter.notifyDataSetChanged();
             }
 
             @Override

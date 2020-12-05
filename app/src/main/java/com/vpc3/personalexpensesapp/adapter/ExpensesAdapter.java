@@ -1,4 +1,4 @@
-package com.vpc3.personalexpensesapp.activites.adapter;
+package com.vpc3.personalexpensesapp.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -65,6 +65,11 @@ public class ExpensesAdapter  extends  RecyclerView.Adapter<ExpensesAdapter.Expe
     @Override
     public int getItemCount() {
         return arrayList.size();
+    }
+
+    public void deleteAllData(){
+        arrayList.clear();
+        notifyDataSetChanged();
     }
 
     class ExpensesViewHolder extends RecyclerView.ViewHolder{
