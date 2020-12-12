@@ -4,6 +4,9 @@ public class Expenses {
    private String place,date;
    private double money;
 
+
+    public Expenses() { }
+
     public Expenses(String place, String date, double money) {
         this.place = place;
         this.date = date;

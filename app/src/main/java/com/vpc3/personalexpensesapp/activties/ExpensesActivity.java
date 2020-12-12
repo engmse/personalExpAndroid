@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -25,8 +28,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.Query;
 import com.vpc3.personalexpensesapp.R;
 import com.vpc3.personalexpensesapp.adapter.ExpensesAdapter;
+import com.vpc3.personalexpensesapp.adapter.ExpensesViewHolder;
 import com.vpc3.personalexpensesapp.model.Expenses;
 
 import java.util.ArrayList;
@@ -39,14 +44,14 @@ public class ExpensesActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<Expenses> expensesArrayList = new ArrayList<>();
     FirebaseFirestore db;
+    FirestoreRecyclerOptions<Expenses> options;
+    FirestoreRecyclerAdapter<Expenses, ExpensesViewHolder> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expenses_activty);
         initView();
     }
-
-
     private void initView() {
         TextView dp = findViewById(R.id.dataPicker);
         fcb = findViewById(R.id.floatingAddBtn);
@@ -57,13 +62,12 @@ public class ExpensesActivity extends AppCompatActivity {
         TextView title = appBar.findViewById(R.id.titleBar);
         ImageView settings = appBar.findViewById(R.id.settingBtn);
         db = FirebaseFirestore.getInstance();
+        populateExpensesFromFirestore();
         back.setVisibility(View.GONE);
         title.setText(R.string.expenses);
         settings.setVisibility(View.INVISIBLE);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
-        ExpensesAdapter adapter = new ExpensesAdapter(this, expensesArrayList);
-        recyclerView.setAdapter(adapter);
         /*************************************************/
         Bundle b = getIntent().getExtras();
         if (b != null) {
@@ -100,9 +104,9 @@ public class ExpensesActivity extends AppCompatActivity {
 
     private void addExpensesToFirebase(Expenses e) {
         Map<String, Object> map = new HashMap<>();
-        map.put("Place", e.getPlace());
-        map.put("Date", e.getDate());
-        map.put("Amount", e.getMoney());
+        map.put("place", e.getPlace());
+        map.put("date", e.getDate());
+        map.put("money", e.getMoney());
         db.collection("Expenses")
                 .add(map)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
@@ -117,5 +121,26 @@ public class ExpensesActivity extends AppCompatActivity {
                         Toast.makeText(ExpensesActivity.this, "Expenses Not Added", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void populateExpensesFromFirestore(){
+        Query query = db.collection("Expenses");
+        options = new FirestoreRecyclerOptions.Builder<Expenses>()
+                .setQuery(query,Expenses.class)
+                .build();
+        adapter = new FirestoreRecyclerAdapter<Expenses, ExpensesViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull ExpensesViewHolder holder, int position, @NonNull Expenses model) {
+              holder.setData(model);
+            }
+            @NonNull
+            @Override
+            public ExpensesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.rv_expenses_row,parent,false);
+                return new ExpensesViewHolder(v);
+            }
+        };
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
     }
 }
