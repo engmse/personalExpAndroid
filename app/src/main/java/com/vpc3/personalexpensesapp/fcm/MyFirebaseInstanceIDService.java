@@ -1,5 +1,6 @@
 package com.vpc3.personalexpensesapp.fcm;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -7,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,7 +32,7 @@ public class MyFirebaseInstanceIDService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
         Toast.makeText(this, "Notification", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "From: " + remoteMessage.getFrom());
-        showNotification();
+        showNotification(remoteMessage);
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
@@ -50,13 +52,17 @@ public class MyFirebaseInstanceIDService extends FirebaseMessagingService {
     }
 
 
-    private void showNotification() {
+    private void showNotification(RemoteMessage remoteMessage) {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel("APP_CHANNEL_NOTIFICATION",
                     "APP_CHANNEL_NOTIFICATION",
                     NotificationManager.IMPORTANCE_DEFAULT);
             notificationChannel.setDescription("This is channel for sending app notification");
+            notificationChannel.enableLights(true);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setLightColor(Color.GRAY);
+            notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
             if (notificationManager != null) {
                 notificationManager.createNotificationChannel(notificationChannel);
             }
@@ -64,8 +70,8 @@ public class MyFirebaseInstanceIDService extends FirebaseMessagingService {
 //*https://developer.android.com/training/notify-user/expanded#java*/
         NotificationCompat.Builder notificationCompat = new NotificationCompat.Builder(this, "APP_CHANNEL_NOTIFICATION")
                 .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("READ FROM MESSAGE")
-                .setContentText("READ FROM MESSAGE")
+                .setContentTitle(remoteMessage.getNotification().getTitle())
+                .setContentText(remoteMessage.getNotification().getBody())
                 .setAutoCancel(true)
 /* .setLargeIcon(myBitmap)
 .setStyle(new NotificationCompat.BigPictureStyle()

@@ -44,6 +44,10 @@ public class RegistrationActivity extends AppCompatActivity {
         bindingRegister.registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(bindingRegister.userNameEt.getText().toString().isEmpty()){
+                    bindingRegister.userNameEt.setError("");
+                    return;
+                }
                 registerUserToFirebase(bindingRegister.userNameEt.getText().toString(),
                         bindingRegister.mobileNo.getText().toString(),
                         bindingRegister.userPassword.getText().toString());
