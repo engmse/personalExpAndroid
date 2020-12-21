@@ -8,9 +8,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.akexorcist.localizationactivity.ui.LocalizationActivity;
 import com.vpc3.personalexpensesapp.R;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends LocalizationActivity {
 
     ImageView logo;
     @Override
@@ -18,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         logo = findViewById(R.id.appLogo);
-
+         setLanguage("ar");
         Animation a = AnimationUtils.loadAnimation(this,R.anim.fade_in);
         a.setAnimationListener(new Animation.AnimationListener() {
             @Override

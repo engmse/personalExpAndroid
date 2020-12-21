@@ -54,6 +54,11 @@ public class SettingFragment extends Fragment {
             editor.putInt("KEY_LANG", rArabic.isChecked() ? 1 : 0);
             editor.apply();
             Toast.makeText(getActivity(), "Settings Saved Successfully", Toast.LENGTH_SHORT).show();
+
+            if(rArabic.isChecked()){
+
+            }
+
         });
         getSettings();
         return v;
